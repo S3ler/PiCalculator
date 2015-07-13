@@ -1,0 +1,13 @@
+#Go into erlang shell:
+erl
+#compile
+c(pi)
+#spawn pi with 5
+PiD = spawn(fun() -> pi:launch(5) end).
+
+# or process function
+pi:launch(5).
+
+#or exit erlang shell and start escript
+escript pi 5
+

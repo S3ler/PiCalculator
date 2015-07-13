@@ -1,0 +1,25 @@
+#!/usr/bin/env escript
+%% -*- erlang -*-
+%%! -smp enable -sname factorial -mnesia -mode(compile) debug verbose
+main([String]) ->
+    try
+	compile:file(pi),
+	TStart = os:timestamp(),
+	Pi = pi:launch(list_to_integer(String)),
+	TEnd = os:timestamp(),
+	% io:format("~.18g~n",[Pi]),
+	Tdiff = timer:now_diff(TEnd,TStart) / 1000,
+	io:format("Duration: ~p ms~n",[Tdiff]),
+	io:format("~n",[])
+    catch
+        _:_ ->
+            usage()
+    end;
+main(_) ->
+    usage().
+
+usage() ->
+    io:format("usage: pi integer\n"),
+    halt(1).
+% start with: escript pi 20000
+% modified from http://www.erlang.org/doc/man/escript.html
